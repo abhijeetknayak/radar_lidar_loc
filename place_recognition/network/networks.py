@@ -1,16 +1,18 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from backbone.encoder import *
-from neck.necks import *
+from network.encoder import *
+from network.necks import *
+
+import ipdb
 
 class PlaceRecogNet(nn.Module):
     def __init__(self):
         super(PlaceRecogNet, self).__init__()
-        self.encoder_radar = UNetEncoder(in_channels=1, filter_start=64, depth=5)
-        self.encoder_lidar = UNetEncoder(in_channels=1, filter_start=64, depth=5)
-        self.neck_radar = NetVLAD(num_clusters=512, dim=1024)
-        self.neck_lidar = NetVLAD(num_clusters=512, dim=1024)
+        self.encoder_radar = UNetEncoder(in_channels=1, filter_start=32, depth=5)
+        self.encoder_lidar = UNetEncoder(in_channels=1, filter_start=32, depth=5)
+        self.neck_radar = NetVLAD(num_clusters=512, dim=512)
+        self.neck_lidar = NetVLAD(num_clusters=512, dim=512)
 
     def forward(self, anchor, pos, neg):
         enc_anchor = self.encoder_radar(anchor)
@@ -25,4 +27,5 @@ class PlaceRecogNet(nn.Module):
 
 if __name__ == '__main__':
     model = PlaceRecogNet().cuda()
-    summary(model, [(1, 256, 256), (1, 256, 256), (1, 256, 256)])
+    ipdb.set_trace()
+    summary(model, [(1, 512, 512), (1, 512, 512), (1, 512, 512)])

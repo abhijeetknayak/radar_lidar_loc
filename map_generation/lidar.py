@@ -36,7 +36,7 @@ def load_velodyne_binary(velodyne_bin_path: AnyStr):
     Args:
         example_path (AnyStr): Oxford Radar RobotCar Dataset binary Velodyne pointcloud example path
     Returns:
-        ptcld (np.ndarray): XYZI pointcloud from the binary Velodyne data Nx4
+        ptcld (np.ndarray): XYZI pointcloud from the binary Velodyne data_utils Nx4
     Notes:
         - The pre computed points are *NOT* motion compensated.
         - Converting a raw velodyne scan to pointcloud can be done using the
@@ -82,13 +82,13 @@ def load_velodyne_raw(velodyne_raw_path: AnyStr):
     return ranges, intensities, angles, approximate_timestamps
 
 def velodyne_raw_to_pointcloud(ranges: np.ndarray, intensities: np.ndarray, angles: np.ndarray):
-    """ Convert raw Velodyne data (from load_velodyne_raw) into a pointcloud
+    """ Convert raw Velodyne data_utils (from load_velodyne_raw) into a pointcloud
     Args:
         ranges (np.ndarray): Raw Velodyne range readings
         intensities (np.ndarray): Raw Velodyne intensity readings
         angles (np.ndarray): Raw Velodyne angles
     Returns:
-        pointcloud (np.ndarray): XYZI pointcloud generated from the raw Velodyne data Nx4
+        pointcloud (np.ndarray): XYZI pointcloud generated from the raw Velodyne data_utils Nx4
 
     Notes:
         - This implementation does *NOT* perform motion compensation on the generated pointcloud.
@@ -210,7 +210,7 @@ def post_process_lidar(vl_path, vr_path):
 
     def scale_to_255(a, min, max, dtype=np.uint8):
         """ Scales an array of values from specified min, max range to 0-255
-            Optionally specify the data type of the output (default is uint8)
+            Optionally specify the data_utils type of the output (default is uint8)
         """
         return (((a - min) / float(max - min)) * 255).astype(dtype)
 
@@ -228,9 +228,9 @@ def post_process_lidar(vl_path, vr_path):
     return im
 
 if __name__ == '__main__':
-    file = '../data/oxford/sample/velodyne_left/1547131141271541.bin'
-    im_file = '../data/oxford/sample/velodyne_left/1547131046260961.png'
-    im2_file = '../data/oxford/sample/velodyne_right/1547131046278808.png'
+    file = '../data_utils/oxford/sample/velodyne_left/1547131141271541.bin'
+    im_file = '../data_utils/oxford/sample/velodyne_left/1547131046260961.png'
+    im2_file = '../data_utils/oxford/sample/velodyne_right/1547131046278808.png'
 
     im = post_process_lidar(im_file, im2_file)
     cv2.imshow("lidar", im)

@@ -42,7 +42,7 @@ def post_process_lidar(points, fwd_range, side_range):
     y_points = y_points[indices]
 
     # plt.scatter(x_points, y_points, s=0.1)
-    # plt.savefig(os.path.join('./data/lidar_img', f'{counter}.jpg'))
+    # plt.savefig(os.path.join('./data_utils/lidar_img', f'{counter}.jpg'))
     # plt.cla()
     # counter += 1
 
@@ -64,7 +64,7 @@ def post_process_lidar(points, fwd_range, side_range):
 
     def scale_to_255(a, min, max, dtype=np.uint8):
         """ Scales an array of values from specified min, max range to 0-255
-            Optionally specify the data type of the output (default is uint8)
+            Optionally specify the data_utils type of the output (default is uint8)
         """
         return (((a - min) / float(max - min)) * 255).astype(dtype)
 
@@ -109,13 +109,13 @@ class radarLidarDataset(Dataset):
         self.r_xyt = np.array([[-6, 6],
                                [-6, 6],
                                [-6, 6]])
-        pose_file = '../../RaLL/data/gt_poses/RobotCar/pose_xy_01.txt'
+        pose_file = '../../RaLL/data_utils/gt_poses/RobotCar/pose_xy_01.txt'
         fp = open(pose_file, 'r')
         self.gt_poses = [(float(pose.strip().split(' ')[0]),
                           float(pose.strip().split(' ')[1]),
                           float(pose.strip().split(' ')[2])) for pose in fp.readlines()]
 
-        self.result_path = './data/lidar_img'
+        self.result_path = './data_utils/lidar_img'
         os.makedirs(self.result_path, exist_ok=True)
 
     def __len__(self):
@@ -147,9 +147,9 @@ class radarLidarDataset(Dataset):
 
 if __name__ == '__main__':
     radar_imdir = '../pytorch-CycleGAN-and-pix2pix/oxford/radar'
-    odom_file = '../data/oxford/sample/gt/radar_odometry.csv'
+    odom_file = '/oxford/sample/gt/radar_odometry.csv'
     map_file = '../pytorch-CycleGAN-and-pix2pix/robotcar_map.npz'
-    rtime_file = '../data/oxford/sample/radar.timestamps'
+    rtime_file = '/oxford/sample/radar.timestamps'
 
     dataset = radarLidarDataset(radar_imdir, odom_file, map_file, rtime_file)
 

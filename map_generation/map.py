@@ -101,7 +101,7 @@ def create_map(vr_time, vl_time, vr_loc, vl_loc, gt_pose_file, extrinsics_dir):
     return map
 
 if __name__ == '__main__':
-    oxford_data_dir = '../data/oxford/sample'
+    oxford_data_dir = '../data_utils/oxford/sample'
     extrinsics_dir = '../robotcar_dataset_sdk/extrinsics'
 
     # Get Radar timestamps

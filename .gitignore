@@ -7,6 +7,7 @@
 
 # Extras
 tmp_*/
+*wandb*/
 
 # Setuptools distribution and build folders.
 *.egg-info/

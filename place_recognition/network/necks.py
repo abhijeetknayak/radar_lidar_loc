@@ -77,6 +77,6 @@ class NetVLAD(nn.Module):
         return vlad
 
 if __name__ == '__main__':
-    # net = NetVLAD(num_clusters=64, dim=1024)
-    net = MLP(in_feat=29 * 29 * 1024, out_feat=8192)
-    print(summary(net, (1024, 29, 29)))
+    net = NetVLAD(num_clusters=512, dim=512)
+    # net = MLP(in_feat=29 * 29 * 1024, out_feat=8192)
+    print(summary(net.cuda(), (512, 29, 29)))
